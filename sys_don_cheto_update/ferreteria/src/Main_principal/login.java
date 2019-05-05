@@ -130,9 +130,24 @@ validar_login loginn;
            JOptionPane.showMessageDialog(null, "¡El usuario no existe!");
            }
            else{
-               main new_main= new main();
+               System.out.println(""+loginn.getTipo_user());
+               if(loginn.getTipo_user()==1){
+                   
+                    main new_main= new main();
                new_main.setVisible(true);
                super.dispose();
+               }else if(loginn.getTipo_user()==2){
+                    almacenista new_alm= new almacenista();
+               new_alm.setVisible(true);
+               super.dispose();
+               
+               }else{
+               empleado new_emp= new empleado();
+               new_emp.setVisible(true);
+               super.dispose();
+               }
+               
+              
            }
         }
         else{

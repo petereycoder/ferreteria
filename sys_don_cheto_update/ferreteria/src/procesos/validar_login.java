@@ -16,6 +16,7 @@ import java.sql.Statement;
  * @author root
  */
 public class validar_login {
+    int tipo_user=0;
 
     ConexionBD conect = new ConexionBD();
     Connection login_DB = conect.getConexionBD();
@@ -25,19 +26,33 @@ public class validar_login {
 
     public validar_login(String nombre, String pass) throws SQLException {
         Statement s = login_DB.createStatement();
-        ResultSet rs = s.executeQuery("select * from empleados");
+        ResultSet rs = s.executeQuery("select * from usuarios");
         while (rs.next()) {
            
             if(rs.getString(2).equals(nombre) && rs.getString(3).equals(pass)){
            System.out.println("los datos coinciden");
-            validar=true;
+             if(rs.getString(4).equals("duenio")){
+             tipo_user=1;
+            }else if(rs.getString(4).equals("almacenista")){
+                tipo_user=2;
             }
+            else{
+                tipo_user=3;
+            }
+            validar=true;
+            
+            }
+        
+          
                 
         }
         login_DB.close();
     }
     public boolean getValidar() {
         return validar;
+    }
+    public int getTipo_user(){
+    return tipo_user;
     }
 
 }
