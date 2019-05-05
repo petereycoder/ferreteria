@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2019 a las 22:41:55
+-- Tiempo de generación: 06-05-2019 a las 00:35:22
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -38,24 +38,12 @@ CREATE TABLE `almacen` (
   `minimo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `empleados`
+-- Volcado de datos para la tabla `almacen`
 --
 
-CREATE TABLE `empleados` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `contraseña` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `empleados`
---
-
-INSERT INTO `empleados` (`id`, `nombre`, `contraseña`) VALUES
-(1, 'admin_sys', 'admin_sys');
+INSERT INTO `almacen` (`idalmacen`, `idproducto`, `fecha`, `stock`, `minimo`) VALUES
+(1, 1, '2019-05-01', 50, 50);
 
 -- --------------------------------------------------------
 
@@ -72,6 +60,35 @@ CREATE TABLE `productos` (
   `prod_precio` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`idproducto`, `nombre`, `descripcion`, `codigo`, `prod_costo`, `prod_precio`) VALUES
+(1, 'agua', 'agua ciel 1L', '011502434544', 10.33, 11.44);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `contraseña` varchar(50) NOT NULL,
+  `tipo_user` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `contraseña`, `tipo_user`) VALUES
+(1, 'admin_sys', 'admin_sys', 'duenio'),
+(2, 'felipe', 'felipe', 'almacenista'),
+(3, 'otrousuario', 'otrousuario', 'empleado');
+
 -- --------------------------------------------------------
 
 --
@@ -87,6 +104,13 @@ CREATE TABLE `ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`idventa`, `fecha`, `idproducto`, `cantidad`, `costo`) VALUES
+(1, '2019-05-01 01:08:18', 1, 5, 0);
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -97,16 +121,16 @@ ALTER TABLE `almacen`
   ADD PRIMARY KEY (`idalmacen`,`idproducto`);
 
 --
--- Indices de la tabla `empleados`
---
-ALTER TABLE `empleados`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`idproducto`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `ventas`
@@ -119,10 +143,10 @@ ALTER TABLE `ventas`
 --
 
 --
--- AUTO_INCREMENT de la tabla `empleados`
+-- AUTO_INCREMENT de la tabla `usuarios`
 --
-ALTER TABLE `empleados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
