@@ -41,10 +41,7 @@ public class validar_login {
             }
             validar=true;
             
-            }
-        
-          
-                
+            }      
         }
         login_DB.close();
     }
