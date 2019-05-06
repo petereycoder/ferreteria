@@ -195,13 +195,12 @@
                 <Component class="javax.swing.JTable" name="tabla_ventas">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="4">
+                      <Table columnCount="5" rowCount="4">
                         <Column editable="true" title="idventa" type="java.lang.Integer"/>
                         <Column editable="true" title="fecha " type="java.lang.String"/>
-                        <Column editable="true" title="nombre" type="java.lang.String"/>
-                        <Column editable="true" title="Descripci&#xf3;n" type="java.lang.String"/>
+                        <Column editable="true" title="idproducto" type="java.lang.Integer"/>
                         <Column editable="true" title="Cantidad" type="java.lang.Integer"/>
-                        <Column editable="true" title="Costo" type="java.lang.Double"/>
+                        <Column editable="true" title="costo" type="java.lang.Double"/>
                       </Table>
                     </Property>
                     <Property name="autoscrolls" type="boolean" value="false"/>
@@ -257,7 +256,7 @@
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -266,10 +265,12 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jLabel7" pref="0" max="32767" attributes="0"/>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                           <Component id="aniof" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="diaf" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="mesf" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="diaf" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="mesf" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
@@ -455,7 +456,7 @@
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel20" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel16" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -465,10 +466,12 @@
                                   <Component id="jLabel19" alignment="0" pref="28" max="32767" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="jLabel17" alignment="1" pref="0" max="32767" attributes="0"/>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                           <Component id="añoi" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                                          <Component id="diai" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="mesi" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="diai" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="mesi" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                               </Group>
@@ -612,6 +615,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consultar "/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
