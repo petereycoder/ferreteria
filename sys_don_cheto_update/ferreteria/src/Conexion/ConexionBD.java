@@ -25,7 +25,7 @@ public class ConexionBD {
     public ConexionBD(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/don_cheto","root","");
+            conexion=DriverManager.getConnection("jdbc:mysql://localhost:3306/don_cheto","root","admin");
             if(conexion!=null){
                 System.out.println("Conexion establecida");
             }

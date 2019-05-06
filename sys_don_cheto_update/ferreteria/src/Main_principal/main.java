@@ -7,9 +7,10 @@ package Main_principal;
 
 import Conexion.ConexionBD;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -23,10 +24,13 @@ public class main extends javax.swing.JFrame {
     /**
      * Creates new form main
      */
-    public main() {
+    public main() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);
+        mostrar();
+        masvendidos();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +44,11 @@ public class main extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -48,9 +56,9 @@ public class main extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        diaf = new javax.swing.JComboBox<>();
+        diaf = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
-        mesf = new javax.swing.JComboBox<>();
+        mesf = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         aniof = new javax.swing.JTextField();
@@ -58,9 +66,9 @@ public class main extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        diai = new javax.swing.JComboBox<>();
+        diai = new javax.swing.JComboBox<String>();
         jLabel17 = new javax.swing.JLabel();
-        mesi = new javax.swing.JComboBox<>();
+        mesi = new javax.swing.JComboBox<String>();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         añoi = new javax.swing.JTextField();
@@ -84,28 +92,58 @@ public class main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Usuario", jPanel1);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 765, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Productos", jPanel2);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 765, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Inventario", jPanel4);
@@ -115,17 +153,17 @@ public class main extends javax.swing.JFrame {
 
         tabla_ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "idventa", "fecha ", "idproducto", "Cantidad", "costo"
+                "idventa", "fecha ", "nombre", "Descripción", "Cantidad", "Costo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,7 +179,7 @@ public class main extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Día");
 
-        diaf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        diaf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         diaf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diafActionPerformed(evt);
@@ -151,7 +189,7 @@ public class main extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setText("-");
 
-        mesf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        mesf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         mesf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mesfActionPerformed(evt);
@@ -235,7 +273,7 @@ public class main extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel16.setText("Día");
 
-        diai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        diai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
         diai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 diaiActionPerformed(evt);
@@ -245,7 +283,7 @@ public class main extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel17.setText("-");
 
-        mesi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        mesi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         mesi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mesiActionPerformed(evt);
@@ -325,11 +363,6 @@ public class main extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton1.setText("Consultar ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -424,38 +457,6 @@ public class main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_añoiActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-        ConexionBD conect = new ConexionBD();
-        Connection login_DB = conect.getConexionBD();
-        String fecha_inicial= añoi.getText()+"-"+(String)mesi.getSelectedItem()+"-"+(String)diai.getSelectedItem()+" 00:00:00";
-        String fecha_final= aniof.getText()+"-"+(String)mesf.getSelectedItem()+"-"+(String)diaf.getSelectedItem()+" 23:59:59";
-        System.out.println("fecha_inicial"+fecha_inicial);
-        System.out.println("fecha_inicial"+fecha_final);
-         
-        try {
-            
-            if(!fecha_inicial.equals("") || !fecha_final.equals("")){
-                DefaultTableModel modelo=new DefaultTableModel();
-                  Statement s = login_DB.createStatement();
-            ResultSet rs = s.executeQuery("SELECT idventa,fecha,cantidad,costo,nombre,descripcion FROM ventas,productos WHERE fecha>='"+fecha_inicial+"' AND fecha<='"+fecha_final+"' AND ventas.idproducto=productos.idproducto");
-            modelo.setColumnIdentifiers(new Object[]{"idventa","fecha","cantidad","costo","nombre","descripcion"});
-            while (rs.next()) {
-                 modelo.addRow(new Object[]{rs.getInt("idventa"),rs.getDate("fecha"),rs.getInt("cantidad"),rs.getDouble("costo"),rs.getString("nombre"),rs.getString("descripcion")}); 
-             tabla_ventas.setModel(modelo);
-            }
-            }
-            else{
-                System.out.println("Datos invalidos");
-            }
-          
-        } catch (SQLException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -486,11 +487,73 @@ public class main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+                try {
+                    new main().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
+    private  void mostrar() throws SQLException{
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        jTable1.setModel(modelo);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConexionBD conn = new ConexionBD();
+        Connection con = conn.getConexionBD();
+        String sql = "SELECT nombre, descripcion, codigo, prod_costo, prod_precio, stock FROM productos, almacen WHERE productos.idproducto = almacen.idproducto and almacen.stock >=1";
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int cantcol = rsmd.getColumnCount();
+        
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Código");
+        modelo.addColumn("Costo");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        
+        while(rs.next()){
+            Object[] filas = new Object[cantcol];
+            for(int i=0;i<cantcol;i++){
+                filas[i] = rs.getObject(i+1);
+            }
+            modelo.addRow(filas);
+        }
+    }
+    
+    private  void masvendidos() throws SQLException{
+        
+        DefaultTableModel modelo = new DefaultTableModel();
+        jTable2.setModel(modelo);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ConexionBD conn = new ConexionBD();
+        Connection con = conn.getConexionBD();
+        String sql = "SELECT nombre, descripcion, cantidad, costo FROM productos, ventas WHERE productos.idproducto = ventas.idproducto and ventas.cantidad >=50";
+        ps = con.prepareStatement(sql);
+        rs = ps.executeQuery();
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int cantcol = rsmd.getColumnCount();
+        
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripción");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Costo");
+        
+        while(rs.next()){
+            Object[] filas = new Object[cantcol];
+            for(int i=0;i<cantcol;i++){
+                filas[i] = rs.getObject(i+1);
+            }
+            modelo.addRow(filas);
+        }
+    }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField aniof;
     private javax.swing.JTextField añoi;
@@ -518,7 +581,11 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JComboBox<String> mesf;
     private javax.swing.JComboBox<String> mesi;
     private javax.swing.JTable tabla_ventas;
